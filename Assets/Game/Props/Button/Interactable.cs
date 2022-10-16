@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour
 
     // Dialogue Variables
     public Dialogue dialogue;
-    DialogueManager dialogueManager;
+    public DialogueManager dialogueManager;
 
     // Button Variables
     [HideInInspector] public Animator animator;
@@ -24,7 +24,7 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         // Acquires the material attached to the GameObject
-        material = GetComponent<Renderer>().material;
+        //material = GetComponent<Renderer>().material;
         // Acquires DialogueManager object in scene
         dialogueManager = FindObjectOfType<DialogueManager>();
 
@@ -67,48 +67,49 @@ public class Interactable : MonoBehaviour
     // Creates an emission effect from the material to highlight the object
     private void Highlight()
     {
-        // Enables Emission feature of material (Disabled by default)
-        material.EnableKeyword("_EMISSION");
-        // Emits a white color at the given intensity
-        material.SetColor("_EmissionColor", highlightColor * highlightIntensity);
+        //// Enables Emission feature of material (Disabled by default)
+        //material.EnableKeyword("_EMISSION");
+        //// Emits a white color at the given intensity
+        //material.SetColor("_EmissionColor", highlightColor * highlightIntensity);
     }
 
     // Removes the highlight effect from the material
     private void UnHighlight()
     {
-        // Disables Emission feature of material
-        material.DisableKeyword("_EMISSION");
+        //// Disables Emission feature of material
+        //material.DisableKeyword("_EMISSION");
     }
 
     // Interact behavior of this game object
     public void Interact()
     {
         GetDialogue();
-        PushButton();
+        //PushButton();
     }
 
     public void GetDialogue()
     {
+        print("getting dialogue");
         if (dialogue.sentences.Length > 0)
         {
             // Makes sure a dialogue is not currently active
             if (!dialogueManager.isActive)
             {
-                // Starts this object's dialogue
-                //dialogueManager.StartDialogue(dialogue);
+                //Starts this object's dialogue
+                dialogueManager.StartDialogue(dialogue);
             }
         }
     }
 
-    public void PushButton()
-    {
-        if (animator != null)
-        {
-            if (!animator.GetBool("isPressed"))
-            {
-                animator.SetBool("isPressed", true);
-                //puzzleCheck.Puzzle_ButtonPress(GetComponent<Animator>());
-            }
-        }
-    }
+    //public void PushButton()
+    //{
+    //    if (animator != null)
+    //    {
+    //        if (!animator.GetBool("isPressed"))
+    //        {
+    //            animator.SetBool("isPressed", true);
+    //            //puzzleCheck.Puzzle_ButtonPress(GetComponent<Animator>());
+    //        }
+    //    }
+    //}
 }
