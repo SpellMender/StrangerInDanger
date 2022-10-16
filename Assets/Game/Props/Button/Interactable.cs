@@ -17,7 +17,6 @@ public class Interactable : MonoBehaviour
 
     // Button Variables
     [HideInInspector] public Animator animator;
-    [SerializeField] PuzzleHandler puzzleCheck;
 
     public GameObject promptText;
 
@@ -96,7 +95,7 @@ public class Interactable : MonoBehaviour
             if (!dialogueManager.isActive)
             {
                 // Starts this object's dialogue
-                dialogueManager.StartDialogue(dialogue);
+                //dialogueManager.StartDialogue(dialogue);
             }
         }
     }
@@ -108,7 +107,7 @@ public class Interactable : MonoBehaviour
             if (!animator.GetBool("isPressed"))
             {
                 animator.SetBool("isPressed", true);
-                puzzleCheck.Puzzle_ButtonPress(GetComponent<Animator>());
+                //puzzleCheck.Puzzle_ButtonPress(GetComponent<Animator>());
             }
         }
     }
