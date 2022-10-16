@@ -112,6 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8a9a5731892e4458919fd98da752f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionDistance: 10
+  followOffset: 1
+  speed: 5
 --- !u!1 &3497226870919063313
 GameObject:
   m_ObjectHideFlags: 0
