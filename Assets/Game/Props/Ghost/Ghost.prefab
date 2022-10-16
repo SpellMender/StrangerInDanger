@@ -116,7 +116,8 @@ MonoBehaviour:
   detectionDistance: 10
   followOffset: 1
   speed: 5
-  player: {fileID: 7973881022676466656, guid: 2681cc7d397007042bf5980089e410c3, type: 3}
+  playerScript: {fileID: 7973881022676466662, guid: 2681cc7d397007042bf5980089e410c3,
+    type: 3}
 --- !u!82 &2566242916981188441
 AudioSource:
   m_ObjectHideFlags: 0

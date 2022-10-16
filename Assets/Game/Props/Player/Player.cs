@@ -25,9 +25,24 @@ public class Player : MonoBehaviour
     public float maxLookAngle = 90.0f;
     float rotX;
 
+    // Flashlight
+    public Light flashLight;
+    public float dimSpeed = 0.05f;
+    public float dimRange = 0.05f;
+    public float brightest;
+    public bool touched;
+    bool fadeIn;
+
+    public Transform spawnPoint;
+
+    public bool disabled;
+
     // Start is called before the first frame update (3 lines)
     void Start()
     {
+        //Flashlight Memory
+        brightest = flashLight.intensity;
+
         // Acquires the Character Controller component attached to this game object
         controller = GetComponent<CharacterController>();
         // Saves the stepOffset of the Character Controller for use later on
@@ -40,16 +55,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame (2 lines)
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!disabled)
         {
-            Application.Quit();
+            //Fade Flashlight
+            FadeLight();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+
+            // Moves Character Controller consistent with the framerate at the given speed and XZ Input Direction
+            controller.Move(Time.deltaTime * MovementVectorXYZ());
+
+            // Rotates camera with mouse input
+            transform.eulerAngles = AimDirection();
         }
-
-        // Moves Character Controller consistent with the framerate at the given speed and XZ Input Direction
-        controller.Move(Time.deltaTime * MovementVectorXYZ());
-
-        // Rotates camera with mouse input
-        transform.eulerAngles = AimDirection();
     }
 
     // 3D vector calculated for all directional input (3 lines)
@@ -126,4 +147,42 @@ public class Player : MonoBehaviour
         // rotate the camera
         return new Vector3(-rotX, transform.eulerAngles.y + y, 0f);
     }
+
+    public void FadeLight()
+    {
+        //if (touched)
+        //{
+        //    transform.position = new Vector3(68f, 2f, 8f);
+        //    //// Fade Out Light
+        //    //if (flashLight.intensity > dimRange + dimSpeed && !fadeIn)
+        //    //{
+        //    //    flashLight.intensity -= dimSpeed;
+        //    //}
+
+        //    // Fade In Light
+        //    //if (flashLight.intensity < brightest)
+        //    //{
+        //    //    flashLight.intensity += dimSpeed;
+        //    //}
+        //    //else
+        //    //{
+        //    //    touched = false;
+        //    //}
+        //    //else
+        //    //{
+        //    //    Time.timeScale = 1;
+        //    //    fadeIn = false;
+        //    //    touched = false;
+        //    //}
+
+        //    //// Return to spawn
+        //    //if (flashLight.intensity <= dimRange && flashLight.intensity >= -dimRange)
+        //    //{
+        //    //    transform.position = spawnPoint.position;
+        //    //    flashLight.intensity = dimRange + dimSpeed;
+        //    //    fadeIn = true;
+        //    //}
+        //}
+    }
+
 }

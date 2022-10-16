@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ghost : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Ghost : MonoBehaviour
     public float followOffset = 0.5f; [Tooltip("Without this the follower hugs the player non-consensually")]
     public float speed = 5f;
 
+    public Player playerScript;
     Transform player;
     bool sounded;
 
@@ -23,6 +25,8 @@ public class Ghost : MonoBehaviour
     {
         if (CanFollow()) FollowPlayer();
         CheckForSound();
+
+        TouchPlayer();
     }
 
     bool CanFollow()
@@ -42,6 +46,14 @@ public class Ghost : MonoBehaviour
         {
             sounded = false;
             print("Sounded:" + sounded);
+        }
+    }
+
+    void TouchPlayer()
+    {
+        if (GetPlayerDistance() < 1f)
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
