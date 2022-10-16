@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Ghost : MonoBehaviour
@@ -9,6 +10,7 @@ public class Ghost : MonoBehaviour
     public float speed = 5f;
 
     Transform player;
+    bool sounded;
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +22,27 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         if (CanFollow()) FollowPlayer();
+        CheckForSound();
     }
 
     bool CanFollow()
     {
         return GetPlayerDistance() < detectionDistance && GetPlayerDistance() > followOffset;
+    }
+
+    void CheckForSound()
+    {
+        if (CanFollow() && !sounded)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            sounded = true;
+            print("Sounded:" + sounded);
+        }
+        else if (!CanFollow() && sounded)
+        {
+            sounded = false;
+            print("Sounded:" + sounded);
+        }
     }
 
     float GetPlayerDistance()
